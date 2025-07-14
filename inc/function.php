@@ -1,6 +1,6 @@
 <?php
 function dbconnect(){
-    $bdd= mysqli_connect('localhost','root','','exams2');
+    $bdd= mysqli_connect('localhost','ETU004184','pBksnNTa','db_s2_ETU004184');
     if(!$bdd){
         die("erreur");
     }
