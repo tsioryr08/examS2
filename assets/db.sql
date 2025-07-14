@@ -158,4 +158,26 @@ INSERT INTO exams2_emprunt (id_emprunt, id_objet, id_membre, date_emprunt, date_
 (10, 30, 4, '2025-07-12 ', '2025-07-19 ');
 
 
+//lhjlklkkl;kll
+create table exams2_autreImage(
+    id_objet INT,
+    nom_image VARCHAR(100),
+    lien_image VARCHAR(200)
+);
 
+
+UPDATE exams2_membre SET image_profil = 'riana.jpg' WHERE nom = 'Riana';
+UPDATE exams2_membre SET image_profil = 'tojo.jpg' WHERE nom = 'Tojo';
+UPDATE exams2_membre SET image_profil = 'malala.jpg' WHERE nom = 'Malala';
+UPDATE exams2_membre SET image_profil = 'hery.jpg' WHERE nom = 'Hery';
+
+UPDATE exams2_emprunt SET date_retour = '2025-10-10' WHERE id_emprunt = 1;
+UPDATE exams2_emprunt SET date_retour = '2025-10-08' WHERE id_emprunt = 2;
+UPDATE exams2_emprunt SET date_retour = '2025-10-12' WHERE id_emprunt = 3;
+UPDATE exams2_emprunt SET date_retour = '2025-10-13' WHERE id_emprunt = 4;
+UPDATE exams2_emprunt SET date_retour = '2025-10-14' WHERE id_emprunt = 5;
+UPDATE exams2_emprunt SET date_retour = '2025-10-15' WHERE id_emprunt = 6;
+UPDATE exams2_emprunt SET date_retour = '2025-10-16' WHERE id_emprunt = 7;
+UPDATE exams2_emprunt SET date_retour = '2025-10-17' WHERE id_emprunt = 8;
+UPDATE exams2_emprunt SET date_retour = '2025-10-20' WHERE id_emprunt = 9;
+UPDATE exams2_emprunt SET date_retour = '2025-10-19' WHERE id_emprunt = 10;
