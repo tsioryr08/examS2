@@ -11,6 +11,8 @@ $nom = $_SESSION['nom'];
 $email = $_SESSION['email'];
 $categories = get_all_categories();
 $objets = isset($_GET['categorie']) ? get_objets_par_categorie((int)$_GET['categorie']) : afficher_liste_objet();
+
+
 ?>
 
 <!DOCTYPE html>
@@ -25,9 +27,16 @@ $objets = isset($_GET['categorie']) ? get_objets_par_categorie((int)$_GET['categ
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3">
   <a class="navbar-brand" href="accueil.php">Objets Partagés</a>
-  <div class="ms-auto text-white">
-    Bonjour, <?= htmlspecialchars($nom) ?> &nbsp;|&nbsp;
-    <a href="deconnexion.php" class="btn btn-outline-light btn-sm">Déconnexion</a>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav me-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="#">Accueil</a>
+      </li>
+    </ul>
+    <div class="ms-auto text-white">
+      Bonjour, <?= htmlspecialchars($nom) ?> &nbsp;|&nbsp;
+      <a href="deconnexion.php" class="btn btn-outline-light btn-sm">Déconnexion</a>
+    </div>
   </div>
 </nav>
 
@@ -46,10 +55,12 @@ $objets = isset($_GET['categorie']) ? get_objets_par_categorie((int)$_GET['categ
   <div class="row">
     <?php if ($objets): ?>
       <?php foreach ($objets as $objet): ?>
+        <?php $images_supplementaires = get_images_objet($objet['id_objet']); ?>
+        
         <div class="col-md-4 mb-4">
           <div class="card h-100 shadow-sm">
             <?php if (!empty($objet['nom_image'])): ?>
-              <img src="../assets/img/<?= htmlspecialchars($objet['nom_image']) ?>" class="card-img-top" alt="Image">
+              <img src="../assets/img/<?= htmlspecialchars($objet['nom_image']) ?>" class="card-img-top" alt="Image principale">
             <?php else: ?>
               <img src="../assets/img/default.jpg" class="card-img-top" alt="Pas d'image">
             <?php endif; ?>
@@ -59,6 +70,26 @@ $objets = isset($_GET['categorie']) ? get_objets_par_categorie((int)$_GET['categ
                 <strong>Propriétaire:</strong> <?= htmlspecialchars($objet['proprietaire']) ?><br>
                 <strong>Retour:</strong> <?= $objet['date_retour'] ? htmlspecialchars($objet['date_retour']) : "Pas emprunté" ?>
               </p>
+
+              <form action="upload.php" method="post" enctype="multipart/form-data" class="mb-2">
+                <input type="hidden" name="id_objet" value="<?= $objet['id_objet'] ?>">
+                <input type="file" name="images[]" multiple required class="form-control form-control-sm mb-2">
+                <button type="submit" class="btn btn-sm btn-outline-success">Uploader des images</button>
+              </form>
+
+             <?php if (!empty($images_supplementaires)): ?>
+  <div class="mt-3">
+    <h6>Autres images :</h6>
+    <div class="d-flex flex-wrap gap-2">
+      <?php foreach ($images_supplementaires as $img): ?>
+        <?php if (!empty($img['nom_image'])): ?>
+          <img src="../assets/img/<?= htmlspecialchars($img['nom_image']) ?>" style="width: 80px; height: 80px; object-fit: cover; border: 1px solid #ccc;">
+        <?php endif; ?>
+      <?php endforeach; ?>
+    </div>
+  </div>
+<?php endif; ?>
+
             </div>
           </div>
         </div>

@@ -1,6 +1,6 @@
 <?php
 function dbconnect(){
-    $bdd= mysqli_connect('localhost', 'ETU004184', 'pBksnNTa', 'db_s2_ETU004184');
+    $bdd= mysqli_connect('localhost','root','','exams2');
     if(!$bdd){
         die("erreur");
     }
@@ -100,6 +100,15 @@ function get_objets_par_categorie($id_categorie) {
 
     return $objets;
 }
-
+function get_images_objet($id_objet) {
+    $db = dbconnect();
+    $sql = "SELECT nom_image FROM exams2_images_objet WHERE id_objet = $id_objet";
+    $res = mysqli_query($db, $sql);
+    $images = [];
+    while ($row = mysqli_fetch_assoc($res)) {
+        $images[] = $row;
+    }
+    return $images;
+}
 
 ?>
